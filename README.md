@@ -1,1 +1,1 @@
-# thchXR.github.io
+This is a passion project
