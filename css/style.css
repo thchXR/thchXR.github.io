@@ -8,6 +8,13 @@
   --card: #161616;
 }
 /* 设置背景颜色等基础设置 */
+@font-face {
+    font-family: 'CNRNerdFont';
+    src: url('src/fonts/CodeNewRomanNerdFont-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap; /* 优化加载性能 */
+}
 
 * {
   margin: 0;
@@ -18,7 +25,7 @@
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'CNRNerdFont', 'Inter', system-ui, -apple-system, sans-serif;
   line-height: 1.6;
   min-height: 100vh;
 }
