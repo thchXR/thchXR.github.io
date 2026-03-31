@@ -40,9 +40,11 @@ function initKaTeX() {
   console.log('KaTeX 公式渲染初始化完成');
 }
 
+// 渲染列表
 function renderPostList() {
   const listEl = document.getElementById('post-list');
   if (!listEl) return;
+  //
   listEl.innerHTML = '';
   postManifest.forEach(post => {
     const li = document.createElement('li');
@@ -55,7 +57,7 @@ function renderPostList() {
   });
   listEl.addEventListener('click', handlePostClick);
 }
-
+// 处理点击事件
 async function handlePostClick(e) {
   if (e.target.tagName === 'A' && e.target.dataset.slug) {
     e.preventDefault();
@@ -72,8 +74,11 @@ async function loadAndShowPost(slug) {
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
-    const markdownText = await response.text();
-    
+    let markdownText = await response.text();
+    // let 定义以便修改
+    // 移除 YAML 
+    markdownText = markdownText.replace(/^\s*---\s*\n([\s\S]*?)\s*---\s*\n/, '');
+
     const htmlContent = marked.parse(markdownText, {
       highlight: (code) => hljs ? hljs.highlightAuto(code).value : code
     });
