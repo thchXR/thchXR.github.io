@@ -5,33 +5,33 @@
   --bg-color: #ffffff;
   --border-color: #ddd;
 }
-@font-face {
+/*@font-face {
     font-family: 'CNRNerdFont';
     src: url('src/fonts/CodeNewRomanNerdFont-Regular.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
-    font-display: swap; /* 优化加载性能 */
-}
+    font-display: swap; 
+}*/
 /* 粗体 */
-@font-face {
+/*@font-face {
     font-family: 'CNRNerdFont';
     src: url('src/fonts/CodeNewRomanNerdFont-Bold.otf') format('opentype');
     font-weight: bold;
     font-style: normal;
     font-display: swap;
-}
+}*/
 
 /* 斜体 */
-@font-face {
+/*@font-face {
     font-family: 'CNRNerdFont';
     src: url('src/fonts/CodeNewRomanNerdFont-Italic.otf') format('opentype');
     font-weight: normal;
     font-style: italic;
     font-display: swap;
-}
+}*/
 
 body {
-  font-family: 'CNRNerdFont', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   line-height: 1.7;
   color: var(--text-color);
   background-color: #f9f9f9;
