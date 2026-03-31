@@ -1,40 +1,47 @@
 <!DOCTYPE html>
-<!-- 文档类型 html5 规范 -->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>thchXR's Blog</title>
+  
+  <!-- 加载库 -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/common.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark.css">
+  
+  <!-- 加载样式表 之后可以添加切换功能 -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>thchXR's Blog</h1>
+      <p>数学笔记</p>
+    </div>
+  </header>
 
-<!-- 起始标签 -->
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <meta name="author" content="thchXR" />
-        <meta name="Keywords" content="Blog" />
-        <meta name="description" content="Notes" />
-        <title>
-            thchXR's Blogs 
-        </title>
+  <main class="container">
+    <!-- 文章列表页面 -->
+    <section id="list-page">
+      <h2>Newest posts</h2>
+      <ul id="post-list" class="post-list"></ul>
+    </section>
 
-        <link rel="stylesheet" href="css/style.css">
-    </head>
+    <!-- 文章详情页面 -->
+    <section id="post-page" class="post-page" style="display: none;">
+      <button id="back-button" class="back-btn">← 返回文章列表</button>
+      <article id="post-content" class="post-content"></article>
+    </section>
+  </main>
 
-    <body>
-    	<div class="container">
-		    <header>
-		      <h1 class="site-title">thchXR's Blogs</h1>
-		      <p class="site-desc">
-		        随手记录一些数学与代码
-		      </p>
-		    </header>
+  <footer>
+    <div class="container">
+      <p>© 2026 thchXR's Blog | powered by Markdown</p>
+    </div>
+  </footer>
 
-		    <main>
-
-		    </main>
-
-			<footer>
-		      	<div class="social-links">
-		        	<a href="https://github.com/" target="_blank">GitHub</a> ·
-		        	<a href="https://space.bilibili.com/129832609">bilibili</a>
-		      	</div>
-		    </footer>
-			</div>
-    </body>
+  <!-- 自己的 JS -->
+  <script src="js/load.js"></script>
+</body>
 </html>
- 
