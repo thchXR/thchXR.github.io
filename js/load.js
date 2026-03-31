@@ -9,11 +9,9 @@ const postManifest = [
   { slug: "有关康托尔集的基数", title: "有关康托尔集的基数", date: "2026-03-30" },
 ];
 
-// 初始化
+// init
 document.addEventListener('DOMContentLoaded', () => {
   renderPostList();
-  
-  // 返回按钮事件
   document.getElementById('back-button').addEventListener('click', showListPage);
 });
 
@@ -36,7 +34,7 @@ function renderPostList() {
   listEl.addEventListener('click', handlePostClick);
 }
 
-// 点击文章标题
+// handle click
 async function handlePostClick(e) {
   if (e.target.tagName === 'A' && e.target.dataset.slug) {
     e.preventDefault();
@@ -45,7 +43,7 @@ async function handlePostClick(e) {
   }
 }
 
-// 加载并显示单篇文章
+// load post
 async function loadAndShowPost(slug) {
   try {
     const response = await fetch(`${postsDir}${slug}.md`);
@@ -78,7 +76,6 @@ async function loadAndShowPost(slug) {
   }
 }
 
-// 显示列表页
 function showListPage() {
   document.getElementById('post-page').style.display = 'none';
   document.getElementById('list-page').style.display = 'block';
