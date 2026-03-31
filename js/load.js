@@ -7,6 +7,7 @@ let allPosts = [];                   // 存储所有文章信息
 // { slug: "文件名不带.md", title: "文章标题", date: "2026-03-30" },
 const postManifest = [
   { slug: "2026-03-有关康托尔集的基数", title: "有关康托尔集的基数", date: "2026-03-30" },
+  { slug: "test-post", title: "测试文章", date: "2026-03-31" },
 ];
 
 // init
