@@ -12,3 +12,9 @@ date: 2026-03-29
 ```javascript
 console.log("Hello, Markdown Blog!");
 ```
+
+## latex 示例
+
+$$
+	e^{i\pi} + 1 = 0 
+$$
