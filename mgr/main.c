@@ -19,8 +19,6 @@ void newBlog(char* title) {
     // create a new .md file
     // with a default template
     
-
-    
     // printf("%s", title);
     return;
 }
