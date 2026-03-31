@@ -1,5 +1,4 @@
-const postsDir = 'posts/';           // Markdown 文件存放目录
-let allPosts = [];                   // 存储所有文章信息
+const postsDir = 'posts/';
 
 // 文章列表目前使用手动维护
 // TODO: 之后将使用c语言完成管理器的编写，自动生成json文件加载
@@ -10,15 +9,15 @@ const postManifest = [
   { slug: "test-post", title: "测试文章", date: "2026-03-31" },
 ];
 
-// init
+
 document.addEventListener('DOMContentLoaded', () => {
   renderPostList();
-  document.getElementById('back-button').addEventListener('click', showListPage);
+  document.getElementById('back-button')?.addEventListener('click', showListPage);
 });
 
-// 渲染文章列表
 function renderPostList() {
   const listEl = document.getElementById('post-list');
+  if (!listEl) return;
   listEl.innerHTML = '';
 
   postManifest.forEach(post => {
@@ -31,49 +30,38 @@ function renderPostList() {
     listEl.appendChild(li);
   });
 
-  // add click ecent
   listEl.addEventListener('click', handlePostClick);
 }
 
-// handle click
 async function handlePostClick(e) {
   if (e.target.tagName === 'A' && e.target.dataset.slug) {
     e.preventDefault();
-    const slug = e.target.dataset.slug;
-    await loadAndShowPost(slug);
+    await loadAndShowPost(e.target.dataset.slug);
   }
 }
 
-// load post
 async function loadAndShowPost(slug) {
+  const url = `${postsDir}${slug}.md`;
+  console.log('正在尝试加载：', url);
+
   try {
-    const response = await fetch(`${postsDir}${slug}.md`);
-    
+    const response = await fetch(url);
     if (!response.ok) {
-      throw new Error(`文章加载失败: ${response.status}`);
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
-    
+
     const markdownText = await response.text();
-    
-    // use marked to render Markdown
     const htmlContent = marked.parse(markdownText, {
-      highlight: function(code, lang) {
-        if (hljs) {
-          return hljs.highlightAuto(code).value;
-        }
-        return code;
-      }
+      highlight: (code) => hljs ? hljs.highlightAuto(code).value : code
     });
 
-    // 显示文章页，隐藏列表页
     document.getElementById('list-page').style.display = 'none';
-    const postPage = document.getElementById('post-page');
+    document.getElementById('post-page').style.display = 'block';
     document.getElementById('post-content').innerHTML = htmlContent;
-    postPage.style.display = 'block';
-    
+
   } catch (error) {
-    console.error(error);
-    alert(`无法加载文章 "${slug}"，请确认文件是否存在于 /posts/ 目录下。\n\n错误信息: ${error.message}`);
+    console.error('加载失败:', error);
+    alert(`文章加载失败！\n\n路径: ${url}\n错误: ${error.message}\n\n请确认 posts/${slug}.md 文件存在且文件名完全正确。`);
   }
 }
 
