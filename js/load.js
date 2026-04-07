@@ -90,19 +90,25 @@ async function loadAndShowPost(slug) {
     document.getElementById('post-content').innerHTML = htmlContent;
 
     setTimeout(() => {
+      const postContent = document.getElementById('post-content');
       if (typeof renderMathInElement !== 'undefined') {
-        renderMathInElement(document.getElementById('post-content'), {
+        renderMathInElement(postContent, {
           delimiters: [
-            { left: "$$",  right: "$$",  display: true },
-            { left: "$",   right: "$",   display: false },
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false },
             { left: "\\(", right: "\\)", display: false },
             { left: "\\[", right: "\\]", display: true }
           ],
-          throwOnError: false
+          throwOnError: false,
+          errorColor: "#cc0000",
+          strict: "warn",
+          macros: {
+            "\\RR": "\\mathbb{R}",
+            "\\NN": "\\mathbb{N}"
+          }
         });
-        console.log('文章内 KaTeX 重新渲染完成');
       }
-    }, 50);
+    }, 150);   
 
   } catch (error) {
     console.error('加载失败:', error);
