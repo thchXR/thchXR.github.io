@@ -19,33 +19,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
 function initKaTeX() {
   if (typeof renderMathInElement === 'undefined') {
-    console.warn('KaTeX 尚未加载，等待 300ms 后重试...');
-    setTimeout(initKaTeX, 300);
+    console.warn('KaTeX auto-render 尚未加载，等待 100ms 后重试...');
+    setTimeout(initKaTeX, 100);
     return;
   }
 
-  renderMathInElement(document.body, {
+  const options = {
     delimiters: [
-      { left: "$$",  right: "$$",  display: true }, 
-      { left: "$",   right: "$",   display: false },  
+      { left: "$$", right: "$$", display: true },
+      { left: "$", right: "$", display: false },
       { left: "\\(", right: "\\)", display: false },
       { left: "\\[", right: "\\]", display: true }
     ],
-    throwOnError: false, 
+    throwOnError: false,
     errorColor: "#cc0000",
     strict: "warn",
     ignoredTags: ["script", "noscript", "style", "textarea", "pre", "code"],
     ignoredClasses: ["katex-ignore", "no-katex"]
-  });
+  };
 
-  console.log('KaTeX 公式渲染初始化完成');
+  // 全局渲染（列表页可能不需要，但无害）
+  renderMathInElement(document.body, options);
+  console.log('KaTeX 全局渲染完成');
 }
 
 // 渲染列表
 function renderPostList() {
   const listEl = document.getElementById('post-list');
   if (!listEl) return;
-  //
   listEl.innerHTML = '';
   postManifest.forEach(post => {
     const li = document.createElement('li');
