@@ -67,9 +67,61 @@ async function handlePostClick(e) {
   }
 }
 
+// async function loadAndShowPost(slug) {
+//   const url = `${postsDir}${slug}.md`;
+//   console.log('正在尝试加载：', url);
+  
+//   try {
+//     const response = await fetch(url);
+//     if (!response.ok) {
+//       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+//     }
+//     let markdownText = await response.text();
+//     // let 定义以便修改
+//     // 移除 YAML 
+//     markdownText = markdownText.replace(/^\s*---\s*\n([\s\S]*?)\s*---\s*\n/, '');
+
+//     const htmlContent = marked.parse(markdownText, {
+//       highlight: (code) => hljs ? hljs.highlightAuto(code).value : code
+//     });
+
+//     document.getElementById('list-page').style.display = 'none';
+//     document.getElementById('post-page').style.display = 'block';
+//     document.getElementById('post-content').innerHTML = htmlContent;
+
+//     setTimeout(() => {
+//       const postContent = document.getElementById('post-content');
+//       if (typeof renderMathInElement !== 'undefined') {
+//         renderMathInElement(postContent, {
+//           delimiters: [
+//             { left: "$$", right: "$$", display: true }, 
+//             { left: "$", right: "$", display: false },
+//             { left: "\\(", right: "\\)", display: false },
+//             { left: "\\[", right: "\\]", display: true }
+//           ],
+//           throwOnError: false,
+//           errorColor: "#cc0000",
+//           strict: "warn",
+//           displayMode: true,
+//           macros: {
+//             "\\RR": "\\mathbb{R}",
+//             "\\NN": "\\mathbb{N}",
+//             "\\CC": "\\mathcal{C}"
+//           }
+//         });
+//         console.log('文章内容 KaTeX 重新渲染完成');
+//       } else {
+//         console.error('KaTeX 未正确加载');
+//       }
+//     }, 200);
+
+//   } catch (error) {
+//     console.error('加载失败:', error);
+//     alert(`文章加载失败！\n\n路径: ${url}\n错误: ${error.message}`);
+//   }
+// }
 async function loadAndShowPost(slug) {
   const url = `${postsDir}${slug}.md`;
-  console.log('正在尝试加载：', url);
   
   try {
     const response = await fetch(url);
@@ -77,11 +129,14 @@ async function loadAndShowPost(slug) {
       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
     let markdownText = await response.text();
-    // let 定义以便修改
-    // 移除 YAML 
     markdownText = markdownText.replace(/^\s*---\s*\n([\s\S]*?)\s*---\s*\n/, '');
 
+    // 配置 marked 选项，禁用自动转义
     const htmlContent = marked.parse(markdownText, {
+      mangle: false,
+      headerIds: false,
+      // 关键：禁用智能标点转换
+      smartypants: false,
       highlight: (code) => hljs ? hljs.highlightAuto(code).value : code
     });
 
@@ -89,37 +144,42 @@ async function loadAndShowPost(slug) {
     document.getElementById('post-page').style.display = 'block';
     document.getElementById('post-content').innerHTML = htmlContent;
 
-    setTimeout(() => {
-      const postContent = document.getElementById('post-content');
-      if (typeof renderMathInElement !== 'undefined') {
-        renderMathInElement(postContent, {
-          delimiters: [
-            { left: "$$", right: "$$", display: true }, 
-            { left: "$", right: "$", display: false },
-            { left: "\\(", right: "\\)", display: false },
-            { left: "\\[", right: "\\]", display: true }
-          ],
-          throwOnError: false,
-          errorColor: "#cc0000",
-          strict: "warn",
-          displayMode: true,
-          macros: {
-            "\\RR": "\\mathbb{R}",
-            "\\NN": "\\mathbb{N}",
-            "\\CC": "\\mathcal{C}"
-          }
-        });
-        console.log('文章内容 KaTeX 重新渲染完成');
-      } else {
-        console.error('KaTeX 未正确加载');
-      }
-    }, 200);
+    // 渲染 KaTeX
+    const postContent = document.getElementById('post-content');
+    if (typeof renderMathInElement !== 'undefined') {
+      // 先清理可能存在的临时元素
+      renderMathInElement(postContent, {
+        delimiters: [
+          { left: "$$", right: "$$", display: true }, 
+          { left: "$", right: "$", display: false },
+          { left: "\\(", right: "\\)", display: false },
+          { left: "\\[", right: "\\]", display: true }
+        ],
+        throwOnError: false,
+        errorColor: "#cc0000",
+        strict: "warn",
+        macros: {
+          "\\RR": "\\mathbb{R}",
+          "\\NN": "\\mathbb{N}",
+          "\\CC": "\\mathcal{C}"
+        }
+      });
+      console.log('KaTeX 渲染完成');
+    }
+    
+    // 确保代码高亮
+    if (typeof hljs !== 'undefined') {
+      document.querySelectorAll('#post-content pre code').forEach((block) => {
+        hljs.highlightElement(block);
+      });
+    }
 
   } catch (error) {
     console.error('加载失败:', error);
     alert(`文章加载失败！\n\n路径: ${url}\n错误: ${error.message}`);
   }
 }
+
 
 function showListPage() {
   document.getElementById('post-page').style.display = 'none';
