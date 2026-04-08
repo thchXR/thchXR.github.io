@@ -5,7 +5,7 @@ const postsDir = 'posts/';
 // 新增文章时，只需在这里添加一行即可
 // { slug: "文件名不带.md", title: "文章标题", date: "2026-03-30" },
 const postManifest = [
-  { slug: "2026-04-donut.c的原理", title: "donut.c 的原理", date: "2026-04-06" },
+  // { slug: "2026-04-donut.c的原理", title: "donut.c 的原理", date: "2026-04-06" },
   { slug: "2026-04-有关康托尔集的基数", title: "有关康托尔集的基数", date: "2026-04-01" },
 ];
 
