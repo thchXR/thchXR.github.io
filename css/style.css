@@ -58,6 +58,45 @@ header h1 {
   color: var(--primary-color);
 }
 
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.header-links {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #333;
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  min-width: 110px;
+  justify-content: center;
+}
+
+.social-link:hover {
+  background-color: #f0f0f0;
+  color: #24292f;
+  transform: translateY(-2px);
+}
+
+.social-link img {
+  border-radius: 4px;
+}
+
 .post-list {
   list-style: none;
   padding: 0;
