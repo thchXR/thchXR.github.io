@@ -130,13 +130,16 @@ async function loadAndShowPost(slug) {
     }
     let markdownText = await response.text();
     markdownText = markdownText.replace(/^\s*---\s*\n([\s\S]*?)\s*---\s*\n/, '');
+    markdownText = markdownText.replace(/(\$\$[\s\S]*?\$\$)/g, (match) => {
+      return match.replace(/\\\\/g, '\\\\');
+    });
 
     // 配置 marked 选项，禁用自动转义
     const htmlContent = marked.parse(markdownText, {
       mangle: false,
       headerIds: false,
-      // 关键：禁用智能标点转换
       smartypants: false,
+      breaks: false,
       highlight: (code) => hljs ? hljs.highlightAuto(code).value : code
     });
 
@@ -158,6 +161,7 @@ async function loadAndShowPost(slug) {
         throwOnError: false,
         errorColor: "#cc0000",
         strict: "warn",
+        displayMode: true,
         macros: {
           "\\RR": "\\mathbb{R}",
           "\\NN": "\\mathbb{N}",
