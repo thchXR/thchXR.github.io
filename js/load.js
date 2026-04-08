@@ -143,6 +143,9 @@ async function loadAndShowPost(slug) {
       highlight: (code) => hljs ? hljs.highlightAuto(code).value : code
     });
 
+    console.log("=== Markdown 处理后的原始文本（包含公式部分） ===");
+    console.log(markdownText);   // 先看整体
+    
     document.getElementById('list-page').style.display = 'none';
     document.getElementById('post-page').style.display = 'block';
     document.getElementById('post-content').innerHTML = htmlContent;
