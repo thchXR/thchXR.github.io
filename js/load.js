@@ -1,4 +1,3 @@
-window.postManifest = postManifest;
 const postsDir = 'posts/';
 
 // 文章列表目前使用手动维护
@@ -9,7 +8,7 @@ const postManifest = [
   // { slug: "2026-04-donut.c的原理", title: "donut.c 的原理", date: "2026-04-06" },
   { slug: "2026-04-有关康托尔集的基数", title: "有关康托尔集的基数", date: "2026-04-01" },
 ];
-
+window.postManifest = postManifest;
 
 document.addEventListener('DOMContentLoaded', () => {
   renderPostList();
