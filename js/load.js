@@ -1,3 +1,4 @@
+window.postManifest = postManifest;
 const postsDir = 'posts/';
 
 // 文章列表目前使用手动维护
@@ -44,21 +45,39 @@ function initKaTeX() {
 }
 
 // 渲染列表
+// function renderPostList() {
+//   const listEl = document.getElementById('post-list');
+//   if (!listEl) return;
+//   listEl.innerHTML = '';
+//   postManifest.forEach(post => {
+//     const li = document.createElement('li');
+//     li.className = 'post-item';
+//     li.innerHTML = `
+//       <a href="#" data-slug="${post.slug}">${post.title}</a>
+//       <div class="date">${post.date}</div>
+//     `;
+//     listEl.appendChild(li);
+//   });
+//   listEl.addEventListener('click', handlePostClick);
+// }
+
 function renderPostList() {
   const listEl = document.getElementById('post-list');
   if (!listEl) return;
+  
   listEl.innerHTML = '';
+  
   postManifest.forEach(post => {
     const li = document.createElement('li');
     li.className = 'post-item';
     li.innerHTML = `
-      <a href="#" data-slug="${post.slug}">${post.title}</a>
+      <a href="post.html?slug=${encodeURIComponent(post.slug)}">${post.title}</a>
       <div class="date">${post.date}</div>
     `;
     listEl.appendChild(li);
   });
-  listEl.addEventListener('click', handlePostClick);
 }
+
 // 处理点击事件
 async function handlePostClick(e) {
   if (e.target.tagName === 'A' && e.target.dataset.slug) {
@@ -145,7 +164,7 @@ async function loadAndShowPost(slug) {
 
     console.log("=== Markdown 处理后的原始文本（包含公式部分） ===");
     console.log(markdownText);   // 先看整体
-    
+
     document.getElementById('list-page').style.display = 'none';
     document.getElementById('post-page').style.display = 'block';
     document.getElementById('post-content').innerHTML = htmlContent;

@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <time.h>
 
 // print help message
 void printHelp(char* name){
@@ -19,6 +20,8 @@ void newBlog(char* title) {
     // create a new .md file
     // with a default template
     
+
+
     // printf("%s", title);
     return;
 }
