@@ -93,6 +93,7 @@ header h1 {
 }
 
 .post-page {
+  max-width: 1000px;
   background: white;
   padding: 30px;
   border-radius: 10px;
