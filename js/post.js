@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     return;
   }
 
-  // 从 postManifest 中找到对应文章（postManifest 在 load.js 中定义）
+  // 从 postManifest 中找到对应文章
   const post = window.postManifest?.find(p => p.slug === slug);
 
   if (!post) {
@@ -36,7 +36,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   });
 });
 
-// 复用你原来的加载逻辑（稍作调整）
 async function loadMarkdownPost(slug) {
   const url = `posts/${slug}.md`;
 
@@ -49,7 +48,7 @@ async function loadMarkdownPost(slug) {
     // 移除 YAML front matter
     markdownText = markdownText.replace(/^\s*---\s*\n([\s\S]*?)\s*---\s*\n/, '');
 
-    // 处理 KaTeX 兼容性（你原来的处理）
+    // 处理 KaTeX 兼容性
     markdownText = markdownText.replace(/(\$\$[\s\S]*?\$\$)/g, (match) => {
       return match.replace(/\\\\/g, '\\\\');
     });
